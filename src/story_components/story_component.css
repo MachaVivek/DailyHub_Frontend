@@ -1,0 +1,63 @@
+ .story-container {
+  position: relative;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-container .story-card {
+  position: relative;
+  max-width: 400px; /* Increase the maximum width */
+  height: 380px; /* Increase the height */
+  background: #fff;
+  margin: 30px 20px;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 20px 20px 20px rgba(30, 69, 2, 0.8);
+  transition: 0.3s ease-in-out;
+}
+
+.story-container .story-card:hover {
+  height: 500px; /* Increase the height on hover */
+}
+
+.story-container .story-card .story-image {
+  padding: 5%;
+  position: relative;
+  width: 100%;
+  height: 280px; /* Increase the height */
+  top: -60px;
+  background-color: #fff;
+  z-index: 1;
+  box-shadow: 0 5px 20px rgba(30, 69, 2, 0.5);
+  border-radius: 10%;
+}
+
+.story-container .story-card .story-image img {
+  padding: 10px;
+  width: auto;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.story-container .story-card .story-content {
+  position: relative;
+  margin-top: -160px; /* Adjust margin-top */
+  padding: 20px 15px; /* Increase padding */
+  text-align: center;
+  color: #111;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.story-container .story-card:hover .story-content {
+  visibility: visible;
+  opacity: 1;
+  margin-top: -60px; /* Adjust margin-top */
+  transition-delay: 0.3s;
+}
+

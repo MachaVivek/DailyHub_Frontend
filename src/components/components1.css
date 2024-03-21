@@ -1,0 +1,204 @@
+/* home page */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+}
+
+.home-container1 {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-text1 {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 100px;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    animation: shake 2s infinite;
+    animation-timing-function: ease-in-out;
+}
+
+
+/* login page and register page */
+
+.loginsection, .regisection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.loginform-box {
+    width: 400px;
+    height: 450px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+}
+.regiform-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    height: 850px;
+    width: 600px;
+    backdrop-filter: blur(5px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.login-title, .regi-title {
+    font-size: 3em;
+    color: #fff;
+    text-align: center;
+}
+
+.logininput-box, .regiinput-box {
+    position: relative;
+    margin: 30px 0px;
+    width: 310px;
+    border-bottom: 2px solid #fff;
+}
+
+.logininput-box input, .regiinput-box input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    outline: none;
+    border: none;
+    padding: 0 35px 0 5px;
+    font-size: 1em;
+    color: #fff;
+}
+
+.logininput-box label, .regiinput-box label {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-45%);
+    font-size: 1em;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.logininput-box ion-icon, .regiinput-box ion-icon {
+    position: absolute;
+    top: 20px;
+    right: 8px;
+    color: #fff;
+    font-size: 1.2em;
+}
+
+input:is(:focus, :valid)~label {
+    top: -5px;
+}
+
+.loginbutton, .regibutton {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    background: #a87747;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+.otpbutton{
+    width: 50%;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #5fa847;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.loginbutton:hover, .regibutton:hover,.otpbutton:hover {
+    opacity: 0.7;
+}
+
+.loginregister {
+    margin: 15px 0 30px;
+    font-size: 0.9em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.loginregister label a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.loginregister label a:hover {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* dashboard */
+.card-dashboard {
+    display: block;
+    color: #333;
+    text-decoration: none; /* Ensure anchor tags don't have underline */
+    transition: transform 0.3s, box-shadow 0.3s; /* Add transition for transform and box-shadow */
+    border: 2px solid #333;
+  }
+  
+  .card-dashboard:hover {
+    transform: translateY(-5px); /* Add translateY transform on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,1), 0 8px 16px rgba(0,0,0,2); /* Change box-shadow on hover */
+  }
+  
+  .card-dashboard-img-top {
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+  }
+  
+  .card-dashboard-body {
+    padding: 1.25rem; /* Adjust padding as needed */
+  }
+  
+  .card-dashboard-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Add margin-bottom for spacing */
+  }
+  
+  .card-dashboard-text {
+    color: #555;
+  }
+  

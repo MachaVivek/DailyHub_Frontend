@@ -1,0 +1,51 @@
+/* 2048.css */
+
+  
+  .game-container {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #aa7cac;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .board {
+    display: inline-block;
+    margin-top: 20px;
+  }
+  
+  #score {
+    margin-right: 20px;
+  }
+  
+  #new-game {
+    margin-top: 20px;
+  }
+  
+  .tile {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    background-color: #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 5px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Adjust tile colors based on value */
+  .tile.x2 { background-color: #eee4da; }
+  .tile.x4 { background-color: #ede0c8; }
+  .tile.x8 { background-color: #f2b179; }
+  .tile.x16 { background-color: #f59563; }
+  .tile.x32 { background-color: #f67c5f; }
+  .tile.x64 { background-color: #f65e3b; }
+  .tile.x128 { background-color: #edcf72; }
+  .tile.x256 { background-color: #edcc61; }
+  .tile.x512 { background-color: #edc850; }
+  .tile.x1024 { background-color: #edc53f; }
+  .tile.x2048 { background-color: #edc22e; }
+  .tile.x4096 { background-color: #3c3a32; color: white; }
+  .tile.x8192 { background-color: #3c3a32; color: white; }
+  
