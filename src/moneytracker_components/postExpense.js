@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import moneytracker_background from "../images/moneytracker_background.jpg";
+import "./moneyTrackerComponents.css";
 
 const ExpenseForm = () => {
   const [formData, setFormData] = useState({
@@ -39,7 +40,7 @@ const ExpenseForm = () => {
   };
 
   return (
-    <div className="neumorphic-form-containerexp" style={{ backgroundImage: `url(${moneytracker_background})` ,height: "88vh", backgroundSize: "cover", backgroundPosition: "center" }}>
+    <div className="neumorphic-form-containerexp" style={{ backgroundImage: `url(${moneytracker_background})` ,height: "120vh", backgroundSize: "cover", backgroundPosition: "center" }}>
       
     <form onSubmit={handleSubmit} className="neumorphic-formexp">
     <div style={{ textAlign: 'center'}}>

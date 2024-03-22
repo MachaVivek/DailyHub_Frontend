@@ -42,7 +42,7 @@ const IncomeForm = () => {
   };
 
   return (
-    <div className="neumorphic-form-container" style={{ backgroundImage: `url(${moneytracker_background})` ,height: "88vh", backgroundSize: "cover", backgroundPosition: "center" }}>
+    <div className="neumorphic-form-container" style={{ backgroundImage: `url(${moneytracker_background})` ,height: "100vh", backgroundSize: "cover", backgroundPosition: "center" }}>
 
     <form onSubmit={handleSubmit} className="neumorphic-form">
       <div style={{ textAlign: 'center'}}>

@@ -46,6 +46,11 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.regisection {
+    
+    min-height: 140vh;
+}
+
 .loginform-box {
     width: 400px;
     height: 450px;

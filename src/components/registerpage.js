@@ -11,6 +11,7 @@ import {RecaptchaVerifier, signInWithPhoneNumber} from 'firebase/auth'
 import app from "../firebase.js"
 import {getAuth} from "firebase/auth"
 
+
 import home_background_img from "../images/home_page_background.jpeg";
 
 
@@ -72,7 +73,7 @@ const Registerpage = () => {
       };
   
   return (
-    <section className='regisection' style={{ overflowY: "auto", backgroundImage: `url(${home_background_img})`, height: "100vh", backgroundSize: "cover", backgroundPosition: "center"}}>
+    <section className='regisection' style={{ overflowY: "auto", backgroundImage: `url(${home_background_img})`, height: "140vh", backgroundSize: "cover", backgroundPosition: "center"}}>
     <div className="regiform-box" >
         <div className="regiform-value">
             <form onSubmit={handleSubmit}>
