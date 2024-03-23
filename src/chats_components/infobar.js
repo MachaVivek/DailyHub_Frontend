@@ -14,7 +14,7 @@ const InforBar = ({room}) => {
                 <h3>{room}</h3>
             </div>
             <div className="rightInnerContainer">
-                <a href="/">
+                <a href="/dashboard">
                     <img src={closeIcon} 
                     alt="close img" 
                     style={{ width: '24px', height: '24px' }}/>
