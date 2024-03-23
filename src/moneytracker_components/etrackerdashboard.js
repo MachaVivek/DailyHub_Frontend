@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './moneyTrackerComponents.css';
+import { useNavigate } from 'react-router';
 
 import Chart1 from "./chart1";
 import Chart2 from "./chart2";
@@ -13,15 +14,43 @@ import Chart6 from "./chart6";
 import Chart7 from "./chart7";
 
 const MoneyDashboard = () => {
+  const navigate = useNavigate();
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalDebt, setTotalDebt] = useState(0);
   const [expenseByOption, setExpenseByOption] = useState({});
 
+  const [userId, setUserId] = useState(null);
   useEffect(() => {
-    const fetchIncomeForms = async () => {
+    const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms`);
+        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+        if (!token) {
+          alert('Please login first');
+          navigate('/loginpage');
+          return;
+        }
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setUserId(response.data.userData.userId);
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
+        navigate('/loginpage');
+        // Clear the token in the document cookie
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
+  
+
+  useEffect(() => {
+    const fetchIncomeForms = async() => {
+      try {
+        if (!userId) return; // If userId is not set, exit early
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms/${userId}`);
         const total = response.data.reduce((acc, curr) => acc + curr.amount, 0);
         setTotalIncome(total);
         
@@ -36,7 +65,8 @@ const MoneyDashboard = () => {
 
     const fetchExpenseForms = async () => {
         try {
-          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms`);
+          if (!userId) return; // If userId is not set, exit early
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms/${userId}`);
           const total = response.data.reduce((acc, curr) => acc + curr.amount, 0);
           setTotalExpenditure(total);
   
@@ -57,7 +87,8 @@ const MoneyDashboard = () => {
   
     fetchIncomeForms();
     fetchExpenseForms();
-  }, []);
+  }, [userId]);
+
   return (
     <div style={{ padding: '2%', backgroundColor: 'gray'}}>
       <div class="dashboard-summary">
@@ -78,7 +109,7 @@ const MoneyDashboard = () => {
     <div className="col-md-6 mb-4" style={{width: '90%'}}>
     <div className="chart-container p-5 rounded-lg rounded shadow-lg bg-white text-dark mb-4 border d-flex flex-row">
             <div style={{ width: '70%' }}>
-                <Chart1 />
+            {userId && <Chart1  userId={userId}/>}
             </div>
             <div className="flex-grow-1 p-4">
     <h2 className="chart-titles">Line Chart: Income for Current Month</h2>
@@ -102,14 +133,14 @@ const MoneyDashboard = () => {
 
             {/* Chart on the right */}
             <div style={{ width: '70%' }}>
-                <Chart4 />
+            {userId && <Chart4 userId={userId}/>}
             </div>
         </div>
     </div>
     <div className="col-md-6 mb-4" style={{width: '90%'}}>
     <div className="chart-container p-5 rounded-lg rounded shadow-lg bg-white text-dark mb-4 border d-flex flex-row">
             <div style={{ width: '70%' }}>
-                <Chart5 />
+            {userId && <Chart5 userId={userId}/>}
             </div>
             <div className="flex-grow-1 p-4">
     <h2 className="chart-titles">Income Bar Graph</h2>
@@ -131,14 +162,14 @@ const MoneyDashboard = () => {
 </div>
 
             <div style={{ width: '70%' }}>
-                <Chart6 />
+            {userId && <Chart6 userId={userId}/>}
             </div>
         </div>
     </div>
     <div className="col-md-6 mb-4" style={{width: '90%', height: '50%'}}>
     <div className="chart-container p-5 rounded-lg rounded shadow-lg bg-white text-dark mb-4 border d-flex flex-row">
             <div style={{ width: '30%' }}>
-                <Chart7 />
+            {userId && <Chart7 userId={userId}/>}
             </div>
             <div className="flex-grow-1 p-4">
     <h2 className="chart-titles">Radar Chart Expenses</h2>
@@ -161,14 +192,14 @@ const MoneyDashboard = () => {
 
             {/* Chart on the right */}
             <div style={{ width: '40%' }}>
-                <Chart2 />
+            {userId && <Chart2 userId={userId}/>}
             </div>
         </div>
     </div>
     <div className="col-md-6 mb-4" style={{width: '90%', height: '50%'}}>
     <div className="chart-container p-5 rounded-lg rounded shadow-lg bg-white text-dark mb-4 border d-flex flex-row">
             <div style={{ width: '40%' }}>
-                <Chart3 />
+            {userId && <Chart3 userId={userId}/>}
             </div>
             <div className="flex-grow-1 p-4">
     <h2 className="chart-titles">Pie Chart Incomes</h2>

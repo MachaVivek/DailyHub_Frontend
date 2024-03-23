@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
-function Chart5() {
+function Chart5({userId}) {
     const [barGraph, setBarGraph] = useState(null);
 
     useEffect(() => {
@@ -11,7 +11,7 @@ function Chart5() {
 
     const buildGraph = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms`);
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms/${userId}`);
             const incomeForms = response.data;
 
             // Group income transactions by month

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Chart from 'chart.js/auto';
 import { useEffect, useState } from 'react';
 
-const Chart2= () => {
+const Chart2= ({userId}) => {
     const [pieChart, setPieChart] = useState(null);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const Chart2= () => {
 
     const buildChart = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms`);
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms/${userId}`);
             const expenseForms = response.data;
 
             // Filter expense transactions for the current month

@@ -1,11 +1,12 @@
 // components/Form.js
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import "./moneyTrackerComponents.css";
 import moneytracker_background from "../images/moneytracker_background.jpg";
-
-const IncomeForm = () => {
+import { useNavigate } from 'react-router';
+const IncomeForm = ({userId}) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     amount: '',
     option: '',
@@ -25,7 +26,11 @@ const IncomeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/postincome`, formData);
+      const dataToSend = {
+        ...formData,
+        userId
+      };
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/postincome`, dataToSend);
       console.log(response.data);
       // Reset form after successful submission
       setFormData({

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
-function Chart4() {
+function Chart4({userId}) {
     const [lineChart, setLineChart] = useState(null);
 
     useEffect(() => {
@@ -11,7 +11,7 @@ function Chart4() {
 
     const buildChart = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms`);
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms/${userId}`);
             const incomeForms = response.data;
 
             // Filter income transactions for the selected month

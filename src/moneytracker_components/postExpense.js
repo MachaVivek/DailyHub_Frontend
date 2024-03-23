@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import moneytracker_background from "../images/moneytracker_background.jpg";
 import "./moneyTrackerComponents.css";
-
-const ExpenseForm = () => {
+import { useNavigate } from 'react-router';
+const ExpenseForm = ({userId}) => {
   const [formData, setFormData] = useState({
     amount: '',
     subject: '',
@@ -24,9 +24,16 @@ const ExpenseForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/postexpense`, formData);
+      const dataToSend = {
+        ...formData,
+        userId
+      };
+
+      console.log(dataToSend);
+
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/postexpense`, dataToSend);
       console.log(response.data);
-      // Reset form after successful submission
+
       setFormData({
         amount: '',
         subject: '',

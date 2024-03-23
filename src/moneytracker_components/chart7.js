@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
-function Chart7() {
+function Chart7({userId}) {
     const chartRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms`);
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms/${userId}`);
                 const expenseForms = response.data;
 
                 // Extract expense categories and their total amounts

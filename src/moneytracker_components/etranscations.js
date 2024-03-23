@@ -3,33 +3,55 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import money_transcations_img from "../images/money_transcations_img2.jpg";
+import { useNavigate } from 'react-router';
+
+
 const Transcations = () => {
+  const navigate = useNavigate();
+
   const [incomeForms, setIncomeForms] = useState([]);
   const [expenseForms, setExpenseForms] = useState([]);
   const [searchMonth, setSearchMonth] = useState('');
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+        if (!token) {
+          alert('Please login first');
+          navigate('/loginpage');
+          return;
+        }
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setUserId(response.data.userData.userId);
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
+        navigate('/loginpage');
+        // Clear the token in the document cookie
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
 
   useEffect(() => {
-    const fetchIncomeForms = async () => {
+    const fetchIncomeAndExpenseForms = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms`);
-        setIncomeForms(response.data);
+        if (!userId) return; // If userId is not set, exit early
+        const incomeResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms/${userId}`);
+        setIncomeForms(incomeResponse.data);
+        const expenseResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms/${userId}`);
+        setExpenseForms(expenseResponse.data);
       } catch (error) {
-        console.error('Error fetching income forms:', error);
+        console.error('Error fetching forms:', error);
       }
     };
 
-    const fetchExpenseForms = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms`);
-        setExpenseForms(response.data);
-      } catch (error) {
-        console.error('Error fetching expense forms:', error);
-      }
-    };
-
-    fetchIncomeForms();
-    fetchExpenseForms();
-  }, []);
+    fetchIncomeAndExpenseForms();
+  }, [userId]);
 
   const handleSearch = (e) => {
     setSearchMonth(e.target.value);
@@ -49,7 +71,7 @@ const Transcations = () => {
   const handleIncomeDelete = async (id) => {
     try {
       await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteincome/${id}`);
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getincomeforms/${userId}`);
       setIncomeForms(response.data);
     } catch (error) {
       console.error('Error deleting income form:', error);
@@ -59,7 +81,7 @@ const Transcations = () => {
   const handleExpenseDelete = async (id) => {
     try {
       await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteexpense/${id}`);
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getexpenseforms/${userId}`);
       setExpenseForms(response.data);
     } catch (error) {
       console.error('Error deleting expense form:', error);
